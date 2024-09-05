@@ -5,11 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_marginTop="60dp"
     tools:context=".AddItemActivity">
-
-
-
-
 
     <ScrollView
         android:layout_width="match_parent"
@@ -94,7 +91,7 @@
                 android:required="true" />
 
             <Spinner
-                android:id="@+id/spinnerAccountType"
+                android:id="@+id/spinnerSalesAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -147,7 +144,7 @@
                 tools:ignore="TouchTargetSizeCheck" />
 
             <LinearLayout
-                android:id="@+id/linearLayoutInventory"
+                android:id="@+id/trackInventorylayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

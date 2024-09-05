@@ -1,34 +1,34 @@
-package com.example.testapplication
-
-// FileUtils.kt
-import Item
 import android.content.Context
+import java.io.BufferedReader
+import java.io.InputStreamReader
+
+import android.content.SharedPreferences
 import com.google.gson.Gson
-import java.io.File
-
-import com.google.gson.JsonParser
-
-fun readDataFromFile(context: Context): List<Item>? {
-    val file = File(context.filesDir, "items.json")
-    if (!file.exists()) return null
-
-    val jsonString = file.readText()
-    val gson = Gson()
-    val jsonArray = JsonParser.parseString(jsonString).asJsonArray
-    return jsonArray.mapNotNull { jsonElement ->
-        try {
-            gson.fromJson(jsonElement, Item::class.java)
-        } catch (e: Exception) {
-            null
-        }
-    }
-}
 
 fun writeDataToFile(context: Context, items: List<Item>) {
+    val sharedPreferences = context.getSharedPreferences("items", Context.MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
     val gson = Gson()
-    val jsonString = gson.toJson(items)
-    val file = File(context.filesDir, "items.json")
-    file.writeText(jsonString)
+
+    for (item in items) {
+        val json = gson.toJson(item)
+        editor.putString(item.name, json)
+        editor.apply()
+    }
+
+
 }
 
+fun readDataFromFile(context: Context): List<Item> {
+    val sharedPreferences: SharedPreferences = context.getSharedPreferences("items", Context.MODE_PRIVATE)
+    val gson = Gson()
+    val items = mutableListOf<Item>()
 
+    sharedPreferences.all.forEach { (key, value) ->
+        val json = value as String
+        val item = gson.fromJson(json, Item::class.java)
+        items.add(item)
+    }
+
+    return items
+}

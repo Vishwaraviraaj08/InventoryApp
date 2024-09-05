@@ -14,8 +14,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testapplication.readDataFromFile
-import com.example.testapplication.writeDataToFile
+import readDataFromFile
+import writeDataToFile
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,9 +27,10 @@ class MainActivity : AppCompatActivity() {
         addItemButton.setOnClickListener {
             startActivity(Intent(this, AddItemActivity::class.java))
         }
+    }
 
-
-
+    override fun onResume() {
+        super.onResume()
         val items = listOf(
             Item(
                 id = "1",
@@ -74,7 +75,6 @@ class MainActivity : AppCompatActivity() {
         )
 
 
-        // Write data to file
         writeDataToFile(this, items)
 
         val fetchedItems = readDataFromFile(this)
@@ -83,8 +83,6 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = fetchedItems?.let { ItemAdapter(it) }
-
-
 
     }
 }

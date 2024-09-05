@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.*
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import com.example.testapplication.writeDataToFile
+import writeDataToFile
 
 class AddItemActivity : AppCompatActivity() {
 
@@ -18,14 +18,15 @@ class AddItemActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_add_item)
 
-        val spinnerAccountType: Spinner = findViewById(R.id.spinnerAccountType)
+        val spinnerAccountType: Spinner = findViewById(R.id.spinnerSalesAccount)
         val spinnerPurchaseAccount: Spinner = findViewById(R.id.spinnerPurchaseAccount)
         val checkBoxInventoryTrack: CheckBox = findViewById(R.id.checkBoxInventoryTrack)
-        val linearLayoutInventory: LinearLayout = findViewById(R.id.linearLayoutInventory)
+        val linearLayoutInventory: LinearLayout = findViewById(R.id.trackInventorylayout)
         val checkBoxAdditionalInfo: CheckBox = findViewById(R.id.checkBoxAdditionalInfo)
         val linearLayoutAdditionalInfo: LinearLayout = findViewById(R.id.linearLayoutAdditionalInfo)
 
-        checkBoxInventoryTrack.setOnCheckedChangeListener { _, isChecked ->
+        checkBoxInventoryTrack.setOnCheckedChangeListener { _ , isChecked ->
+            println()
             linearLayoutInventory.visibility = if (isChecked) View.VISIBLE else View.GONE
         }
 
@@ -36,36 +37,31 @@ class AddItemActivity : AppCompatActivity() {
         val accountTypeAdapter = ArrayAdapter.createFromResource(
             this,
             R.array.account_types,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item
         )
-        accountTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerAccountType.adapter = accountTypeAdapter
 
         val purchaseAccountAdapter = ArrayAdapter.createFromResource(
             this,
             R.array.account_types,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item
         )
-        purchaseAccountAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinnerPurchaseAccount.adapter = purchaseAccountAdapter
 
         val dimensionUnitAdapter = ArrayAdapter.createFromResource(
             this,
             R.array.dimension_units,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item
         )
-        dimensionUnitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         findViewById<Spinner>(R.id.spinnerDimensionUnit).adapter = dimensionUnitAdapter
 
         val weightUnitAdapter = ArrayAdapter.createFromResource(
             this,
             R.array.weight_units,
-            android.R.layout.simple_spinner_item
+            R.layout.spinner_item
         )
-        weightUnitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         findViewById<Spinner>(R.id.spinnerWeightUnit).adapter = weightUnitAdapter
 
-        // Example: Save Button click listener
         findViewById<Button>(R.id.buttonSave).setOnClickListener {
             gatherData()
         }
@@ -76,7 +72,7 @@ class AddItemActivity : AppCompatActivity() {
         val sku = findViewById<EditText>(R.id.editTextSKU).text.toString()
         val noOfUnits = findViewById<EditText>(R.id.editTextNoOfUnits).text.toString().toDoubleOrNull() ?: 0.0
         val sellingPrice = findViewById<EditText>(R.id.editTextSellingPrice).text.toString().toDoubleOrNull() ?: 0.0
-        val itemAccount = findViewById<Spinner>(R.id.spinnerAccountType).selectedItem.toString()
+        val itemAccount = findViewById<Spinner>(R.id.spinnerSalesAccount).selectedItem.toString()
         val costPrice = findViewById<EditText>(R.id.editTextCostPrice).text.toString().toDoubleOrNull() ?: 0.0
         val trackInventory = findViewById<CheckBox>(R.id.checkBoxInventoryTrack).isChecked
 
@@ -111,7 +107,7 @@ class AddItemActivity : AppCompatActivity() {
         } else null
 
         val item = Item(
-            id = "PROD-${System.currentTimeMillis()}",
+            id = "PROD-${System.currentTimeMillis()}" + sku,
             name = itemName,
             sellingPrice = sellingPrice,
             costPrice = costPrice,
