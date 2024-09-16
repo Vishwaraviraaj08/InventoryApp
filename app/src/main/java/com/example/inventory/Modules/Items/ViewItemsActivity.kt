@@ -1,14 +1,12 @@
 package com.example.inventory.Modules.Items
 
-import android.content.Context
 import android.os.Bundle
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.android.volley.toolbox.Volley
+import com.example.inventory.Modules.UtilityFunctions
 import com.example.inventory.R
-import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 
 class ViewItemsActivity : AppCompatActivity() {
@@ -16,14 +14,23 @@ class ViewItemsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_items)
 
-        val btnClick = findViewById<Button>(R.id.btnClick)
+        val sharedPrefs = getSharedPreferences("user_info", MODE_PRIVATE)
+        val savedToken = sharedPrefs.getString("access_token", null)
+        val tokenSavedTime = sharedPrefs.getLong("token_saved_time", 0L)
+        val currentTime = System.currentTimeMillis()
 
-        btnClick.setOnClickListener {
-            fetchAndDisplayItems()
+        if (savedToken != null && currentTime - tokenSavedTime > TimeUnit.HOURS.toMillis(1)) {
+            UtilityFunctions.getAccessTokenFromRefreshToken(this) { accessToken ->
+                sharedPrefs.edit().putString("access_token", accessToken)
+                    .putLong("token_saved_time", System.currentTimeMillis())
+                    .apply()
+            }
         }
+
 
         fetchAndDisplayItems()
     }
+
 
     private fun fetchAndDisplayItems() {
         ItemFunctions.fetchItems(this) { items ->

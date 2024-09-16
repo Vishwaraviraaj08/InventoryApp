@@ -18,13 +18,12 @@ class ItemFunctions {
             try {
                 val url = "https://www.zohoapis.in/inventory/v1/items?organization_id=60031594227"
 
-                val request = object : JsonObjectRequest(Request.Method.GET, url, null, { response ->
-                    println("Response : $response")
+                val request = object : JsonObjectRequest(
+                    Request.Method.GET, url, null, { response ->
                     val gson = Gson()
 
                     val items = gson.fromJson(response.toString(), ItemResponse::class.java).items
                     for (i in items) {
-                        println("item : $i")
                         itemsList.add(i)
                     }
                     callback(itemsList)
@@ -35,7 +34,9 @@ class ItemFunctions {
                 }) {
                     override fun getHeaders(): MutableMap<String, String> {
                         val headers = HashMap<String, String>()
-                        headers["Authorization"] = "Zoho-oauthtoken ${context.getSharedPreferences("user_info", Context.MODE_PRIVATE).getString("access_token", "")}"
+                        val accessToken = context.getSharedPreferences("user_info", Context.MODE_PRIVATE).getString("access_token", "")
+                        println("Access Token : $accessToken")
+                        headers["Authorization"] = "Zoho-oauthtoken $accessToken"
                         return headers
                     }
                 }

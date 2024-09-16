@@ -29,7 +29,7 @@ class AppLoading : AppCompatActivity() {
 
         Handler().postDelayed({
 //            startActivity(Intent(this, LoginActivity::class.java))
-            if (getSharedPreferences("user_info", MODE_PRIVATE).getString("access_token", null) != null) {
+            if (getSharedPreferences("user_info", MODE_PRIVATE).getString("refresh_token", null) != null) {
                 startActivity(Intent(this, ViewItemsActivity::class.java))
             } else {
                 startActivity(Intent(this, LoginActivity::class.java))

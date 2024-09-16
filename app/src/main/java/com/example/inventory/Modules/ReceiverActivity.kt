@@ -13,7 +13,6 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.example.inventory.MainActivity
 import com.example.inventory.Modules.Items.ViewItemsActivity
 
 class ReceiverActivity : AppCompatActivity() {
@@ -40,6 +39,7 @@ class ReceiverActivity : AppCompatActivity() {
                     val editor = sharedPreferences.edit()
                     editor.putString("access_token", accessToken)
                     editor.putString("refresh_token", refreshToken)
+                    editor.putLong("token_saved_time", System.currentTimeMillis())
                     editor.apply()
                     val intent = Intent(this, ViewItemsActivity::class.java)
                     startActivity(intent)
