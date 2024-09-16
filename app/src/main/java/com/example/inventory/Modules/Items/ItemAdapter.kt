@@ -1,6 +1,6 @@
-package com.example.inventory
+package com.example.inventory.Modules.Items
 
-import Item
+import com.example.inventory.R
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +27,7 @@ class ItemAdapter (private val items: List<Item>) : RecyclerView.Adapter<ItemAda
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val item = items[position]
         holder.itemName.text = item.name
-        holder.itemDetails.text = "Selling Price: ${item.sellingPrice}\nCost Price: ${item.costPrice}"
+        holder.itemDetails.text = item.item_id
     }
 
 }

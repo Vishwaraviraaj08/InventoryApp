@@ -42,9 +42,11 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.material)
     implementation(libs.androidx.activity)
+
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.recyclerview)
     implementation(libs.room)
+    implementation(libs.android.volley)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
