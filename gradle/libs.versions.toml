@@ -29,6 +29,9 @@ androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview"
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 room = { module = "androidx.room:room-runtime", version.ref = "room" }
 room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+
+
 coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlin" }
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin" }
 android-volley = { group = "com.android.volley", name = "volley", version.ref = "volleyVersion" }

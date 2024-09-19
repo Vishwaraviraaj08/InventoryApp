@@ -19,9 +19,25 @@
     </string-array>
 
     <string-array name="weight_units">
+        <item>Weight Unit</item>
+        <item>mg</item>
         <item>kg</item>
         <item>g</item>
         <item>lb</item>
+        <item>oz</item>
+    </string-array>
+
+
+    <string-array name="item_unit">
+        <item>Item Unit</item>
+        <item>box</item>
+        <item>cm</item>
+        <item>dz</item>
+        <item>g</item>
+        <item>in</item>
+        <item>kg</item>
+        <item>lb</item>
+        <item>mg</item>
         <item>oz</item>
     </string-array>
 

@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.inventory.Modules.Items.AddItems.ItemData
 
-class ItemAdapter (private val items: List<Item>) : RecyclerView.Adapter<ItemAdapter.CustomViewHolder>() {
+class ItemAdapter (private val items: List<ItemData>) : RecyclerView.Adapter<ItemAdapter.CustomViewHolder>() {
 
     class CustomViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val itemName: TextView = view.findViewById(R.id.item_name)
@@ -26,8 +27,8 @@ class ItemAdapter (private val items: List<Item>) : RecyclerView.Adapter<ItemAda
 
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val item = items[position]
-        holder.itemName.text = item.name
-        holder.itemDetails.text = item.item_id
+        holder.itemName.text = item.itemName
+        holder.itemDetails.text = item.itemSp.toString()
     }
 
 }

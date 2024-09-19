@@ -6,7 +6,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginTop="60dp"
-    tools:context=".AddItemActivity">
+    tools:context=".Modules.Items.AddItems.AddItemActivity">
+
+    <TextView
+        android:id="@+id/internetStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="@color/orange"
+        android:text="You are not connected to Internet"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -17,27 +28,30 @@
             android:orientation="vertical"
             android:layout_height="match_parent">
             <RadioGroup
-                android:id="@+id/radioGroupType"
+                android:id="@+id/itemType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radioButtonGoods"
+                    android:id="@+id/typeGoods"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Goods" />
+                    android:checked="true"
+                    android:text="goods"
+                    android:layout_marginRight="20dp"
+                    />
 
                 <RadioButton
-                    android:id="@+id/radioButtonService"
+                    android:id="@+id/typeService"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Service" />
+                    android:text="service" />
             </RadioGroup>
 
             <!-- Item Details -->
             <EditText
-                android:id="@+id/editTextItemName"
+                android:id="@+id/itemName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -47,31 +61,36 @@
                 android:required="true" />
 
             <EditText
-                android:id="@+id/editTextSKU"
+                android:id="@+id/SKU"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:hint="SKU"
                 android:minHeight="48dp" />
 
-            <EditText
-                android:id="@+id/editTextNoOfUnits"
+            <Spinner
+                android:id="@+id/itemUnit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:hint="No of Units"
-                android:importantForAccessibility="yes"
-                android:minHeight="48dp"
-                android:required="true" />
+                android:entries="@array/item_unit"
+                android:minHeight="48dp" />
+
 
             <CheckBox
-                android:id="@+id/checkBoxReturnable"
+                android:id="@+id/checkBoxReturnableItem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Returnable Item" />
 
-            <!-- Sales Info Section -->
+
+
+
+
+
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -81,30 +100,25 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextSellingPrice"
+                android:id="@+id/sellingPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:hint="Selling Price"
+                android:inputType="numberDecimal"
                 android:importantForAccessibility="yes"
                 android:minHeight="48dp"
                 android:required="true" />
 
             <Spinner
-                android:id="@+id/spinnerSalesAccount"
+                android:id="@+id/salesAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:entries="@array/account_types"
                 android:minHeight="48dp" />
 
-            <EditText
-                android:id="@+id/editTextDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:hint="Description"
-                android:minHeight="48dp" />
+
 
             <!-- Purchase Info Section -->
             <TextView
@@ -116,17 +130,18 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextCostPrice"
+                android:id="@+id/costPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:hint="Cost Price"
+                android:inputType="numberDecimal"
                 android:importantForAccessibility="yes"
                 android:minHeight="48dp"
                 android:required="true" />
 
             <Spinner
-                android:id="@+id/spinnerPurchaseAccount"
+                android:id="@+id/purchaseAccount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -144,7 +159,7 @@
                 tools:ignore="TouchTargetSizeCheck" />
 
             <LinearLayout
-                android:id="@+id/trackInventorylayout"
+                android:id="@+id/trackInventorySection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -152,26 +167,29 @@
                 android:visibility="gone">
 
                 <EditText
-                    android:id="@+id/editTextOpeningStock"
+                    android:id="@+id/openingStock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Opening Stock"
+                    android:inputType="numberDecimal"
                     android:importantForAccessibility="yes"
                     android:required="true" />
 
                 <EditText
-                    android:id="@+id/editTextOpeningStockRate"
+                    android:id="@+id/openingStockRate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Opening Stock Rate per Unit"
+                    android:inputType="numberDecimal"
                     android:importantForAccessibility="yes"
                     android:required="true" />
 
                 <EditText
-                    android:id="@+id/editTextReorderLevel"
+                    android:id="@+id/reorderLevel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Reorder Level"
+                    android:inputType="numberDecimal"
                     android:importantForAccessibility="yes"
                     android:required="true" />
             </LinearLayout>
@@ -188,14 +206,13 @@
                 android:hint="Additional Info" />
 
             <LinearLayout
-                android:id="@+id/linearLayoutAdditionalInfo"
+                android:id="@+id/additionalInfoSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <!-- Dimensions -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -213,20 +230,23 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:inputType="numberDecimal"
                         android:hint="Length" />
 
                     <EditText
-                        android:id="@+id/editTextBreadth"
+                        android:id="@+id/editTextWidth"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="Breadth" />
+                        android:inputType="numberDecimal"
+                        android:hint="Width" />
 
                     <EditText
                         android:id="@+id/editTextHeight"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:inputType="numberDecimal"
                         android:hint="Height" />
 
                     <Spinner
@@ -236,14 +256,6 @@
                         android:entries="@array/dimension_units" />
                 </LinearLayout>
 
-                <!-- Weight -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Weight"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -264,13 +276,6 @@
                         android:entries="@array/weight_units" />
                 </LinearLayout>
 
-                <!-- MPN -->
-                <EditText
-                    android:id="@+id/editTextMPN"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:hint="MPN" />
 
                 <!-- ISBN -->
                 <EditText

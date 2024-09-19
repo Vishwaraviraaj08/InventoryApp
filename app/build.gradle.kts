@@ -1,11 +1,15 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
     namespace = "com.example.inventory"
     compileSdk = 34
+
+    viewBinding.isEnabled = true
+    buildFeatures.viewBinding = true
 
     defaultConfig {
         applicationId = "com.example.inventory"
@@ -35,6 +39,12 @@ android {
     }
 }
 
+configurations {
+    implementation.get().exclude(mapOf("group" to "org.jetbrains", "module" to "annotations"))
+}
+
+
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -46,7 +56,10 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.recyclerview)
     implementation(libs.room)
+    implementation(libs.room.ktx)
+    implementation(libs.room.compiler)
     implementation(libs.android.volley)
+    kapt(libs.room.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

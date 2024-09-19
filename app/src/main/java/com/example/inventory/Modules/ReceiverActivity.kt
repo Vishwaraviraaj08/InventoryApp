@@ -24,14 +24,11 @@ class ReceiverActivity : AppCompatActivity() {
         val data: Uri? = intent.data
         val code = data?.getQueryParameter("code")
         if (code != null) {
-            println("Code: $code")
             val queue = Volley.newRequestQueue(this@ReceiverActivity)
             val url = "https://accounts.zoho.in/oauth/v2/token?code=$code&client_id=1000.BZ2D2OQ4UQL9VAVXVCCLJF3YCTE25Z&client_secret=d68b2678aaf8351436a7584d44422f0f41c1d2f138&redirect_uri=https://tester-api.netlify.app/&grant_type=authorization_code"
-            println("URL : $url")
             val request = JsonObjectRequest(
                 Request.Method.POST, url, null,
                 { response ->
-                    println("Response: $response")
                     val accessToken = response.getString("access_token")
                     val refreshToken = response.getString("refresh_token")
                     findViewById<TextView>(R.id.textView4).text = "Access Token: $accessToken\nRefresh Token: $refreshToken"
@@ -46,7 +43,7 @@ class ReceiverActivity : AppCompatActivity() {
                     finish()
                 },
                 { error ->
-                    println("Error: $error")
+                    findViewById<TextView>(R.id.textView4).text = "Error: $error"
                 }
             )
             queue.add(request)

@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:allowBackup="true"
@@ -17,6 +18,21 @@
         android:theme="@style/Theme.Inventory"
         tools:targetApi="31">
         <activity
+            android:name=".Modules.Items.AddItems.AddItemActivity"
+            android:exported="true" >
+
+            <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https"
+                android:host="tester-api.netlify.app"
+                android:pathPrefix="/add-item" />
+            </intent-filter>
+        </activity>
+
+
+        <activity
             android:name=".Modules.ReceiverActivity"
             android:exported="true">
             <intent-filter android:autoVerify="true">
@@ -25,10 +41,24 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="https" />
-                <data android:host="tester-api.netlify.app" />
+                <data android:scheme="https"
+                      android:host="tester-api.netlify.app"
+                        android:pathSuffix="/"
+                    />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".Modules.BackgroundActivity.NetworkChangeListener" android:exported="true">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".Modules.BackgroundActivity.NetworkMonitorService"
+            android:exported="false" />
+
+
         <activity
             android:name=".Modules.LoginActivity"
             android:exported="false" />
@@ -40,6 +70,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

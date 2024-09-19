@@ -15,6 +15,7 @@ class UtilityFunctions {
                 val intent = Intent(context, LoginActivity::class.java)
                 context.startActivity(intent)
             }
+
             else {
                 val url = "https://accounts.zoho.in/oauth/v2/token?refresh_token=$refreshToken&client_id=1000.BZ2D2OQ4UQL9VAVXVCCLJF3YCTE25Z&client_secret=d68b2678aaf8351436a7584d44422f0f41c1d2f138&redirect_uri=https://tester-api.netlify.app/&grant_type=refresh_token"
                 val req = JsonObjectRequest(
@@ -27,6 +28,7 @@ class UtilityFunctions {
                         val editor = sharedPreferences.edit()
                         editor.putString("access_token", accessToken)
                         editor.apply()
+                        callback(accessToken)
                     },
                     { error ->
                         error.printStackTrace()
@@ -35,6 +37,7 @@ class UtilityFunctions {
                 Volley.newRequestQueue(context).add(req)
             }
         }
+
 
 
     }
